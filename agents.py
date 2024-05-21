@@ -5,45 +5,43 @@ from tools.search_tools import SearchTools
 class AIAPAgents():
     def ap_processor_agent(self):
         return Agent(
-            role='ap_processor',
-            goal='Review the proposed topic and add all necessary details and requirements using your experience as an AP processor to make changes and provide feedback.',
-            backstory="""Job Role:\nYou are an AP Processor that works in the ERP daily entering invoices and handling vendor inquiries around payment\n\nChallenges:\nHeavy data entry, manual paper-based process, lost invoices, late payments, dependent on distributed community of users, often tribal knowledge drives workflow\n\nDesired Tasks:\nVerify that the data on the invoice has been properly extracted and identified as part of the capture process. Get invoices entered and coded in order to be approved and paid, answer vendor inquiry questions.\n\nRelevant Workflows:\nVerification and Invoice processing. Usually as first step and then last step of QA prior to entry into the ERP.""",
-            tools=[SearchTools.search_internet], # Agent can use the internet to search for information.
-            allow_delegation=True,    # Allow the agent to delegate tasks to other agents.
+            role='AP Processor',
+            goal='Please evaluate the product idea and provide feedback on what your needs are in your role as an AP processor. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
+            backstory="You are an AP processor. You work in the ERP daily entering invoices and handling vendor inquiries around payment. Your challenges are Heavy data entry, manual paper-based process, lost invoices, late payments, dependent on distributed community of users, often tribal knowledge drives workflow. Your desired tasks are: Verify that the data on the invoice has been properly extracted and identified as part of the capture process, get invoices entered and coded in order to be approved and paid, answer vendor inquiry questions.",
+            #tools=[SearchTools.search_internet], # Agent can use the internet to search for information.
+            allow_delegation=False,    # Allow the agent to delegate tasks to other agents.
             verbose=True,             # Print detailed logs for the agent's actions.
-            max_iter=2               # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
+            max_iter=1               # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
         )
 
     def director_of_ap_agent(self):
         return Agent(
-            role='director_of_ap',
-            goal='Review the proposed topic and add all necessary details and requirements using your experience as an Director of Account Payable to make changes and provide feedback.',
-            backstory="""Job Role:\nDirector or above level for Accounts Payable department, critical managerial role. Ensures the team processes invoices accurately, timely, and in compliance with AP regulations. Is a strong influencer and target buyer persona.\n\nChallenges:\nLack of visibility into the entire AP process, due to manual tasks, paper routing. Incurs late fees, missing on early pay discounts. Keeping the team and processes in line with the company business rules. Reducing manual processes and finding higher value tasks for AP processors.\n\nDesired Tasks:\nQuickly identify bottlenecks in the entire process, user productivity, processing statistics, and ability to take action on any issues.\n\nRelevant Workflows:\nRequires visibility into the entire process, not directly involved in a single workflow step.""",
-            tools=[SearchTools.search_internet], 
+            role='Director of Accounts Payable',
+            goal='Please evaluate the product idea and provide feedback on what your needs are in your role as the Director of Accounts Payable. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
+            backstory="""You are the Director of the Accounts Payable department, which is a critical managerial role. Your job is to ensure the team processes invoices accurately, timely, and in compliance with AP regulations. You are a strong influencer and target buyer persona.Your challenges are: Lack of visibility into the entire AP process due to manual tasks and paper routing; Incurring late fees, missing on early pay discounts; Keeping the team and processes in line with the company business rules; Reducing manual processes and finding higher value tasks for AP processors. Your desired tasks are: Quickly identify bottlenecks in the entire process, user productivity, processing statistics and ability to take action on any issues.""",
+            #tools=[SearchTools.search_internet], 
             verbose=True,
-            max_iter=2,
-            allow_delegation=True,
+            max_iter=1,
+            allow_delegation=False,
             
         )
 
     def  system_administrator_agent(self):
         return Agent(
-            role='system_administrator',
-            goal='Review the proposed topic and add all necessary details and requirements using your experience as a System Adminsitrator to make changes and provide feedback.',
-            backstory="""Job Role:\nResponsible for the platform administration and configuration. Will assist departmental leads and business analyst in implementing and configuring the business processes and rules within Alfresco\n\nChallenges:\nMultiple application platforms to manage, limited time to learn complex scripting or coding languages, needs to maintain upgradeability and limit customizations\n\nDesired Tasks:\nAllow for administration of the users and process through configurable clients, allow for troubleshooting of log files to resolve issues, system monitoring tools\n\nRelevant Workflows:\nNot involved in AP automation workflow directly""",
-            tools=[SearchTools.search_internet],
+            role='System Administrator',
+            goal='Please evaluate the product idea and provide feedback on what your needs are in your role as the System Administrator. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
+            backstory="""You are the System Administrator responsible for the platform administration and configuration. You will assist departmental leads and business analyst in implementing and configuring the business processes and rules within the proposed product.Your challenges are: Multiple application platforms to manage, limited time to learn complex scripting or coding languages, needs to maintain upgradeability and limit customizations. Your desired tasks are: Allow for administration of the users and process through configurable clients, allow for troubleshooting of log files to resolve issues, system monitoring tools.""",
+            #tools=[SearchTools.search_internet],
             verbose=True,
-            max_iter=2,
-            allow_delegation=True,
+            max_iter=1,
+            allow_delegation=False,
         )
 
     def results_compiler_agent(self):
         return Agent(
             role='results_compiler',
-            goal='Compile the output from all agents into the final format',
-            backstory="""As the final architect of the results, you meticulously arrange and format the content,
-            ensuring a coherent and visually appealing presentation that captivates our readers. Make sure to follow
-            format guidelines and maintain consistency throughout.""",
+            goal='Compile the output from all agents into the final format organized by feature',
+            backstory="""You are the product manager for this product. Your job is to document the feedback organized by feature so that the product team can review and prioritize the features requested. You will need to compile the feedback from the other stakeholders into a single document in priority order. Note which stakeholders asked for each feature. The document should be in markdown format and should be ready for publication. Please use a table to visually organize the feedback.""",
             max_iter=2,
-            verbose=True,
+            verbose=False,
         )

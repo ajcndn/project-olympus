@@ -3,9 +3,9 @@ from crewai import Task
 
 
 class AIAPTasks():
-    def research_task(self, agent, productidea):
+    def research_task(self, agent, productidea, feature_num = 3):
         return Task(
-            description=f'Review the new product idea: {productidea} and give unique insight for how to improve it. Give specific ideas for what to add or change for the product to be successful in a Accounts Payable workflow using your unique perspective. Provide a single suggestion for a name for the new product.',
+            description=f'Please evaluate the product idea "{productidea}"and provide feedback on what your needs are in your role. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
             agent=agent,
             async_execution=True, 
             expected_output=""""A well-written list of feedback and insight. "
@@ -28,7 +28,7 @@ class AIAPTasks():
 
     def compile_results_task(self, agent, context, callback_function):
         return Task(
-            description='Compile the summary',
+            description='Compile the output from all agents into the final format organized by feature',
             agent=agent,
             context=context,
             expected_output="""A complete summary in markdown format, with a consistent style and layout. List out each agents ideas and feedback in a clear and concise manner.""",
