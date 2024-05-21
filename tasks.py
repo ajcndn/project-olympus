@@ -1,7 +1,6 @@
 from datetime import datetime
 from crewai import Task
 
-
 class AIAPTasks():
     def research_task(self, agent, productidea, feature_num = 3):
         return Task(
@@ -30,6 +29,7 @@ class AIAPTasks():
         return Task(
             description='Compile the output from all agents into the final format organized by feature',
             agent=agent,
+            async_execution=False, 
             context=context,
             expected_output="""A complete summary in markdown format, with a consistent style and layout. List out each agents ideas and feedback in a clear and concise manner.""",
             callback=callback_function # This task requires a callback function to save the markdown output
