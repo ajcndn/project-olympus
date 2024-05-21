@@ -41,7 +41,7 @@ class AIAPAgents():
         return Agent(
             role='results_compiler',
             goal='Compile the output from all agents into the final format organized by feature',
-            backstory="""You are the product manager for this product. Your job is to document the feedback organized by feature so that the product team can review and prioritize the features requested. You will need to compile the feedback from the other stakeholders into a single document in priority order. Note which stakeholders asked for each feature. The document should be in markdown format and should be ready for publication.""",
-            max_iter=1,
+            backstory="""You are the product manager for this product. Your job is to document the feedback organized by feature so that the product team can review and prioritize the features requested. You will need to compile the feedback from the other stakeholders into a single document in priority order. Note which stakeholders asked for each feature. The document should be in markdown format and should be ready for publication. Please use a table to visually organize the feedback.""",
+            max_iter=2,
             verbose=False,
         )
