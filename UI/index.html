@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Feedback</title>
+    <script>
+        function generateFeedback() {
+            var productIdea = document.getElementById("productIdea").value;
+            var url = "http://127.0.0.1:8000/run_olympus";
+            
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({idea: productIdea})
+            })
+            .then(response => response.text())
+            .then(data => {
+                var markdownContainer = document.getElementById("markdownContainer");
+                markdownContainer.innerHTML = data;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Product Feedback</h1>
+    <input type="text" id="productIdea" placeholder="Enter your product idea">
+    <button onclick="generateFeedback()">Generate Feedback</button>
+    <div id="markdownContainer"></div>
+</body>
+</html>
