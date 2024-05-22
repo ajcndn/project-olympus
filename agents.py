@@ -1,7 +1,6 @@
 from crewai import Agent
 from tools.search_tools import SearchTools
 
-
 class AIAPAgents():
     def ap_processor_agent(self):
         return Agent(
@@ -11,8 +10,7 @@ class AIAPAgents():
             #tools=[SearchTools.search_internet], # Agent can use the internet to search for information.
             verbose=True,             # Print detailed logs for the agent's actions.
             max_iter=5,               # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
-            allow_delegation=False    # Allow the agent to delegate tasks to other agents.
-    
+            allow_delegation=False    # Allow the agent to delegate tasks to other agents. 
         )
 
     def director_of_ap_agent(self):

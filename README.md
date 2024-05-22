@@ -15,13 +15,16 @@ To get started, clone the repository and install the necessary dependencies.
 ```
 git clone https://github.com/your-github-username/project-olympus.git
 cd Project-Olympus
-Run 'poetry install --no-root' to install the required packages.
-pip install -r requirements.txt
+Run 'poetry install --no-root' to install all dependencies and required packages.
+
 ```
 
 ## Usage
 To run Olympus, execute the main script after setting up your environment variables and configuration.
-Rename the .env.example file to .env and fill in the required environment variables for OPENAI_API_KEY & SERPER_API_KEY
+Rename the .env.example file to .env and fill in the required environment variables for 
+- OPENAI_API_KEY (https://openai.com/api/)
+- SERPER_API_KEY (https://serper.dev/)
+- AGENTOPS_API_KEY (https://app.agentops.ai/start)
 
 ``` 
 python main.py
