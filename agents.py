@@ -1,7 +1,7 @@
 from crewai import Agent
 #from tools.search_tools import SearchTools
-#from handler import MyCustomHandler
-from handler2 import CustomStreamlitCallbackHandler
+from handler import MyCustomHandler
+
 
 class AIAPAgents():
     def ap_processor_agent(self):
@@ -13,8 +13,8 @@ class AIAPAgents():
             allow_delegation=False,    # Allow the agent to delegate tasks to other agents.
             verbose=True,             # Print detailed logs for the agent's actions.
             max_iter=1,              # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
-            #callbacks=[MyCustomHandler("AP Processor")]
-            callbacks=[CustomStreamlitCallbackHandler(color="white")],
+            callbacks=[MyCustomHandler("AP Processor")]
+            
         )
 
     def director_of_ap_agent(self):
@@ -26,8 +26,8 @@ class AIAPAgents():
             verbose=True,
             max_iter=1,
             allow_delegation=False,
-            #callbacks=[MyCustomHandler("Director of Accounts Payable")]
-            callbacks=[CustomStreamlitCallbackHandler(color="white")],         
+            callbacks=[MyCustomHandler("Director of Accounts Payable")]
+            
         )
 
     def system_administrator_agent(self):
@@ -39,8 +39,8 @@ class AIAPAgents():
             verbose=True,
             max_iter=1,
             allow_delegation=False,
-            #callbacks=[MyCustomHandler("System Administrator")]
-            callbacks=[CustomStreamlitCallbackHandler(color="white")],
+            callbacks=[MyCustomHandler("System Administrator")]
+            
         )
 
     def results_compiler_agent(self):
@@ -50,6 +50,6 @@ class AIAPAgents():
             backstory="""You are the product manager for this product. Your job is to document the feedback organized by feature so that the product team can review and prioritize the features requested. You will need to compile the feedback from the other stakeholders into a single document in priority order. Note which stakeholders asked for each feature. The document should be in markdown format and should be ready for publication. Please use a table to visually organize the feedback.""",
             max_iter=2,
             verbose=True,
-            #callbacks=[MyCustomHandler("Product Manager")]
-            callbacks=[CustomStreamlitCallbackHandler(color="white")],
+            callbacks=[MyCustomHandler("Product Manager")]
+            
         )
