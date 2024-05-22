@@ -6,7 +6,12 @@ from file_io import save_markdown
 from dotenv import load_dotenv
 from agent_loader import AgentLoader
 
+
 load_dotenv()
+
+# Initiate AgentOps
+#import agentops
+#agentops.init()
 
 # Initialize the agents and tasks
 agents = AIAPAgents()
@@ -15,7 +20,8 @@ num_features = 5
 
 # Initialize the OpenAI GPT-4 language model
 OpenAIGPT4 = ChatOpenAI(
-    model="gpt-4"
+    #model="gpt-4"
+    model="gpt-4o"
 )
 
 # User Input
@@ -44,6 +50,7 @@ compile_results_task = tasks.compile_results_task(product_manager_agent, researc
 #agents = loader.load_agents()
 
 # Form the crew
+#agentops.monitor.start("Overall Crew Process")
 crew = Crew(
     agents=[ap_processor_agent, director_of_ap_agent, system_administrator_agent, product_manager_agent],
     tasks= research_results + [compile_results_task],
@@ -54,6 +61,7 @@ crew = Crew(
 
 # Kick off the crew's work
 results = crew.kickoff()
+#agentops.monitor.stop("Overall Crew Process")
 
 # Print the results
 print("Crew Work Results:")
