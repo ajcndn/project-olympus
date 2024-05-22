@@ -27,10 +27,10 @@ st.subheader("Provide a product idea and we will gather feedback from the stakeh
 productidea = st.text_input("What is your product idea?")
 
 # Instantiate the agents
-ap_processor_agent = agents.ap_processor_agent(callback_handler=MyCustomHandler("ap_processor_agent"))
-director_of_ap_agent = agents.director_of_ap_agent(callback_handler=MyCustomHandler("director_of_ap_agent"))
-system_administrator_agent = agents.system_administrator_agent(callback_handler=MyCustomHandler("system_administrator_agent"))
-product_manager_agent = agents.product_manager_agent(callback_handler=MyCustomHandler("product_manager_agent"))
+ap_processor_agent = agents.ap_processor_agent()
+director_of_ap_agent = agents.director_of_ap_agent()
+system_administrator_agent = agents.system_administrator_agent()
+product_manager_agent = agents.product_manager_agent()
 
 research_results = []
 # Instantiate the tasks
@@ -45,7 +45,8 @@ if st.button('Process Idea'):
         tasks= research_results + [compile_results_task],
         process=Process.sequential, 
         manager_llm=OpenAIGPT4,
-        verbose=2
+        verbose=2,
+        step_callback=MyCustomHandler
     )
 
     # Kick off the crew's work
