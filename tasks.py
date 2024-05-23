@@ -7,11 +7,12 @@ class AIAPTasks():
             description=f'Please evaluate the product idea "{prompt}"and provide feedback on what your needs are in your role. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
             agent=agent,
             async_execution=True, 
-            expected_output=""""A well-written list of feedback and insight. "
-        "in markdown format, ready for publication, "
-        "each section should have 2 or 3 paragraphs."
-        "Provide a list of features that would help with the job, and a list of concerns."
-        "Provide a potential product name for the idea.
+            expected_output="""
+            "A well-written list of feedback and insight. "
+            "in markdown format, ready for publication, "
+            "each section should have 2 or 3 paragraphs."
+            "Provide a list of features that would help with the job, and a list of concerns."
+            "Provide a potential product name for the idea.
             """
         )
         
