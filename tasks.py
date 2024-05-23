@@ -18,7 +18,7 @@ class AIAPTasks():
         
     def compile_results_task(self, agent, context, callback_function):
         return Task(
-            description='Compile the output from all agents into the final format organized by feature',
+            description='Compile the output from all agents into markdown format. Use a table to visually organize the feedback organized by feature',
             agent=agent,
             context=context,
             expected_output="""A complete summary in markdown format, with a consistent style and layout. Provide your response in machine readable output.

@@ -1,10 +1,5 @@
 from crewai import Agent
-from langchain_openai import ChatOpenAI
 #from tools.search_tools import SearchTools
-
-# LLMs
-gpt3 = ChatOpenAI(model="gpt-3.5-turbo")
-gpt4 = ChatOpenAI(model="gpt-4-turbo")
 
 # Define the agents
 class AIAPAgents():
@@ -50,7 +45,7 @@ class AIAPAgents():
             callbacks=[self.callback("System Administrator")]           
         )
 
-    def product_manager_agent(self):
+    def product_manager_agent(self, agentllm):
         return Agent(
             role='Product Manager',
             goal='Compile the output from all agents into the final format organized by feature',
@@ -58,7 +53,7 @@ class AIAPAgents():
             """,
             verbose=True,
             max_iter=100,
-            llm=self.llm,   
-            allow_delegation=True,
-            callbacks=[self.callback("Product Manager")]        
+            llm=agentllm,   
+            allow_delegation=False,
+            #callbacks=[self.callback("Product Manager")]        
         )

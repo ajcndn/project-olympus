@@ -16,6 +16,7 @@ To get started, clone the repository and install the necessary dependencies.
 git clone https://github.com/your-github-username/project-olympus.git
 cd Project-Olympus
 Run 'poetry install --no-root' to install the required packages.
+Run 'poetry shell' to activate the virtual environment.
 
 ```
 

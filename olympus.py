@@ -84,14 +84,14 @@ class MyCustomHandler(BaseCallbackHandler):
     
         chat_interface.send(outputs['output'], user=self.agent_name, avatar=avatars[self.agent_name], respond=False)
 
-#llm = ChatOpenAI(model="gpt-3.5-turbo-0125")
+
 llm = ChatOpenAI(model="gpt-4o")
-#gpt3 = ChatOpenAI(model="gpt-3.5-turbo")
-#gpt4 = ChatOpenAI(model="gpt-4-turbo")
+
 
 approcessorllm = ChatOpenAI(model="gpt-3.5-turbo")
 directorofAPllm = ChatOpenAI(model="gpt-3.5-turbo")
 sysadminllm = ChatOpenAI(model="gpt-3.5-turbo")
+productmanagerllm = ChatOpenAI(model="gpt-3.5-turbo")
 
 #handler
 agent=AIAPAgents(callback=MyCustomHandler, llm=llm)
@@ -101,7 +101,7 @@ tasks = AIAPTasks()
 approcessor = agent.ap_processor_agent(approcessorllm)
 directorofAP = agent.director_of_ap_agent(directorofAPllm)
 sysadmin = agent.system_administrator_agent(sysadminllm)
-productmanager = agent.product_manager_agent()
+productmanager = agent.product_manager_agent(productmanagerllm)
 
 num_features = 5
 
@@ -119,7 +119,7 @@ def StartCrew(prompt):
     crew = Crew(
         agents=[approcessor, directorofAP, sysadmin, productmanager],
         tasks= research_results + [compile_results_task],
-        #manager_llm=llm,
+        manager_llm=llm,
         #process=Process.hierarchical
         verbose=3,
         process=Process.sequential
@@ -127,7 +127,8 @@ def StartCrew(prompt):
 
     result = crew.kickoff()
 
-    chat_interface.send("## Final Result\n"+result, user="Assistant", respond=False)
+    #chat_interface.send("## Final Result\n"+result, user="Assistant", respond=False)
+    chat_interface.send(" Final Result\n"+result, user="Assistant", respond=False)
 
 chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send("💬 Hello! Please provide a product idea and our council of AP experts will provide feedback!", user="Assistant", respond=False)
