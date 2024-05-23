@@ -13,10 +13,10 @@ class AIAPAgents():
             backstory="""You are an AP processor. You work in the ERP daily entering invoices and handling vendor inquiries around payment. Your challenges are Heavy data entry, manual paper-based process, lost invoices, late payments, dependent on distributed community of users, often tribal knowledge drives workflow. Your desired tasks are: Verify that the data on the invoice has been properly extracted and identified as part of the capture process, get invoices entered and coded in order to be approved and paid, answer vendor inquiry questions.""",
             #tools=[SearchTools.search_internet],     # Agent can use the internet to search for information.
             verbose=True,                             # Print detailed logs for the agent's actions.  
-            max_iter=1,                               # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
+            max_iter=100,                               # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
             llm=agentllm,                                 # The language model to use for the agent.
             allow_delegation=False,                   # Allow the agent to delegate tasks to other agents.
-            callbacks=[self.callback("AP Processor")] # Callbacks to handle the agent's actions.           
+            callbacks=[self.callback("Poseidon - AP Processor")] # Callbacks to handle the agent's actions.           
         )
 
     def director_of_ap_agent(self, agentllm):
@@ -26,10 +26,10 @@ class AIAPAgents():
             backstory="""You are the Director of the Accounts Payable department, which is a critical managerial role. Your job is to ensure the team processes invoices accurately, timely, and in compliance with AP regulations. You are a strong influencer and target buyer persona.Your challenges are: Lack of visibility into the entire AP process due to manual tasks and paper routing; Incurring late fees, missing on early pay discounts; Keeping the team and processes in line with the company business rules; Reducing manual processes and finding higher value tasks for AP processors. Your desired tasks are: Quickly identify bottlenecks in the entire process, user productivity, processing statistics and ability to take action on any issues.""",
             #tools=[SearchTools.search_internet], 
             verbose=True,
-            max_iter=1,
+            max_iter=100,
             llm=agentllm,   
             allow_delegation=False,
-            callbacks=[self.callback("Director of Accounts Payable")]          
+            callbacks=[self.callback("Dionysus - Director of Accounts Payable")]          
         )
 
     def system_administrator_agent(self, agentllm):
@@ -39,10 +39,10 @@ class AIAPAgents():
             backstory="""You are the System Administrator responsible for the platform administration and configuration. You will assist departmental leads and business analyst in implementing and configuring the business processes and rules within the proposed product.Your challenges are: Multiple application platforms to manage, limited time to learn complex scripting or coding languages, needs to maintain upgradeability and limit customizations. Your desired tasks are: Allow for administration of the users and process through configurable clients, allow for troubleshooting of log files to resolve issues, system monitoring tools.""",
             #tools=[SearchTools.search_internet],
             verbose=True,
-            max_iter=1,
+            max_iter=100,
             llm=agentllm,   
             allow_delegation=False,
-            callbacks=[self.callback("System Administrator")]           
+            callbacks=[self.callback("Athena - System Administrator")]           
         )
 
     def product_manager_agent(self, agentllm):
@@ -55,5 +55,5 @@ class AIAPAgents():
             max_iter=100,
             llm=agentllm,   
             allow_delegation=False,
-            callbacks=[self.callback("Product Manager")]        
+            callbacks=[self.callback("Zeus - Product Manager")]        
         )

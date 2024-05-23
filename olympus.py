@@ -9,6 +9,7 @@ from file_io import save_markdown
 import panel as pn 
 from crewai.agents import CrewAgentExecutor
 import time 
+
 #from crewai.agents import ChatOpenAI
 pn.extension(design="material")
 #pn.extension('chat', design='material', theme='dark')  # Set dark mode theme
@@ -60,10 +61,10 @@ def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
         user_input = contents
 
 avatars = {
-    "AP Processor": "avatars/approcessor.png",
-    "Director of Accounts Payable": "avatars/directorofap.png",
-    "System Administrator": "avatars/systemadmin.png",
-    "Product Manager": "avatars/productmanager.png",
+    "Poseidon - AP Processor": "avatars/approcessor.png",
+    "Dionysus - Director of Accounts Payable": "avatars/directorofap.png",
+    "Athena - System Administrator": "avatars/systemadmin.png",
+    "Zeus - Product Manager": "avatars/productmanager.png",
     "Assistant": "avatars/assistant.png"
 }
 
@@ -129,8 +130,8 @@ def StartCrew(prompt):
 
 
     #chat_interface.send(" Final Result\n"+result, user="Assistant", respond=False)
-    chat_interface.send("💬 Thank you! Please refresh if you'd like to provide another idea!", user="Assistant", respond=False)
+    chat_interface.send("💬 Thank you! Please refresh if you'd like feedback on another idea!", user="Assistant", respond=False)
 
 chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send("💬 Hello! Please provide a product idea and our council of AP experts will provide feedback!", user="Assistant", respond=False)
-chat_interface.servable()
+chat_interface.servable(title="⚡ Olympus - AP Council")
