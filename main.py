@@ -38,18 +38,18 @@ if prompt := st.chat_input():
     ap_processor_agent = agents.ap_processor_agent()
     director_of_ap_agent = agents.director_of_ap_agent()
     system_administrator_agent = agents.system_administrator_agent()
-    results_compiler_agent = agents.results_compiler_agent()
+    product_manager_agent = agents.product_manager_agent()
 
     research_results = []
     # Instantiate the tasks
     research_results.append(tasks.research_task(ap_processor_agent, prompt, num_features))
     research_results.append(tasks.research_task(director_of_ap_agent, prompt, num_features))
     research_results.append(tasks.research_task(system_administrator_agent, prompt, num_features))
-    compile_results_task = tasks.compile_results_task(results_compiler_agent, research_results, save_markdown)
+    compile_results_task = tasks.compile_results_task(product_manager_agent, research_results, save_markdown)
 
     # Form the crew
     crew = Crew(
-        agents=[ap_processor_agent, director_of_ap_agent, system_administrator_agent, results_compiler_agent],
+        agents=[ap_processor_agent, director_of_ap_agent, system_administrator_agent, product_manager_agent],
         tasks= research_results + [compile_results_task],
         process=Process.sequential, 
         #process=Process.hierarchical,

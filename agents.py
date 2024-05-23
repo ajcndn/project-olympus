@@ -1,9 +1,11 @@
 from crewai import Agent
 #from tools.search_tools import SearchTools
-from handler import MyCustomHandler
-
+#from handler import MyCustomHandler
 
 class AIAPAgents():
+    def __init__(self, callback, llm):
+        self.callback = callback
+        self.llm=llm
     def ap_processor_agent(self):
         return Agent(
             role='AP Processor',
@@ -13,7 +15,10 @@ class AIAPAgents():
             allow_delegation=False,    # Allow the agent to delegate tasks to other agents.
             verbose=True,             # Print detailed logs for the agent's actions.
             max_iter=1,              # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
-            callbacks=[MyCustomHandler("AP Processor")]
+            #callbacks=[MyCustomHandler("AP Processor")]
+            llm=self.llm,
+            callbacks=[self.callback("AP Processor")]
+
             
         )
 
@@ -26,7 +31,9 @@ class AIAPAgents():
             verbose=True,
             max_iter=1,
             allow_delegation=False,
-            callbacks=[MyCustomHandler("Director of Accounts Payable")]
+            #callbacks=[MyCustomHandler("Director of Accounts Payable")]
+            llm=self.llm,
+            callbacks=[self.callback("Director of Accounts Payable")]
             
         )
 
@@ -39,17 +46,22 @@ class AIAPAgents():
             verbose=True,
             max_iter=1,
             allow_delegation=False,
-            callbacks=[MyCustomHandler("System Administrator")]
+            #callbacks=[MyCustomHandler("System Administrator")]
+            llm=self.llm,
+            callbacks=[self.callback("System Administrator")]
             
         )
 
-    def results_compiler_agent(self):
+    def product_manager_agent(self):
         return Agent(
             role='Product Manager',
             goal='Compile the output from all agents into the final format organized by feature',
             backstory="""You are the product manager for this product. Your job is to document the feedback organized by feature so that the product team can review and prioritize the features requested. You will need to compile the feedback from the other stakeholders into a single document in priority order. Note which stakeholders asked for each feature. The document should be in markdown format and should be ready for publication. Please use a table to visually organize the feedback.""",
-            max_iter=2,
+            max_iter=100,
             verbose=True,
-            callbacks=[MyCustomHandler("Product Manager")]
+            allow_delegation=False,
+            #callbacks=[MyCustomHandler("Product Manager")]
+            llm=self.llm,
+            callbacks=[self.callback("Product Manager")]
             
         )
