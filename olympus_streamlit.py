@@ -7,8 +7,6 @@ from langchain_openai import ChatOpenAI
 
 llm = ChatOpenAI()
 
-
-
 writer = Agent(
     role='Blog Post Writer',
     backstory='''You are a blog post writer who is capable of writing a travel blog.

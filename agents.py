@@ -11,12 +11,12 @@ class AIAPAgents():
             role='AP Processor',
             goal='Please evaluate the product idea and provide feedback on what your needs are in your role as an AP processor. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
             backstory="""You are an AP processor. You work in the ERP daily entering invoices and handling vendor inquiries around payment. Your challenges are Heavy data entry, manual paper-based process, lost invoices, late payments, dependent on distributed community of users, often tribal knowledge drives workflow. Your desired tasks are: Verify that the data on the invoice has been properly extracted and identified as part of the capture process, get invoices entered and coded in order to be approved and paid, answer vendor inquiry questions.""",
-            #tools=[SearchTools.search_internet],     # Agent can use the internet to search for information.
-            verbose=True,                             # Print detailed logs for the agent's actions.  
-            max_iter=100,                               # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
-            llm=agentllm,                                 # The language model to use for the agent.
-            allow_delegation=False,                   # Allow the agent to delegate tasks to other agents.
-            callbacks=[self.callback("Poseidon - AP Processor")] # Callbacks to handle the agent's actions.           
+            #tools=[SearchTools.search_internet],                 # Agent can use the internet to search for information.
+            verbose=True,                                         # Print detailed logs for the agent's actions.  
+            max_iter=100,                                         # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
+            llm=agentllm,                                         # The language model to use for the agent.
+            allow_delegation=False,                               # Allow the agent to delegate tasks to other agents.
+            callbacks=[self.callback("Poseidon - AP Processor")]  # Callbacks to handle the agent's actions.           
         )
 
     def director_of_ap_agent(self, agentllm):
