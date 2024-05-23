@@ -48,12 +48,12 @@ class AIAPAgents():
     def product_manager_agent(self, agentllm):
         return Agent(
             role='Product Manager',
-            goal='Compile the output from all agents into the final format organized by feature',
+            goal='Compile the output from all agents into the final format organized by feature in machine readable markdown format.',
             backstory="""You are the product manager for this product. Your job is to document the feedback organized by feature so that the product team can review and prioritize the features requested. You will need to compile the feedback from the other stakeholders into a single document in priority order. Note which stakeholders asked for each feature. The document should be in markdown format and should be ready for publication. Please use a table to visually organize the feedback.
             """,
             verbose=True,
             max_iter=100,
             llm=agentllm,   
             allow_delegation=False,
-            #callbacks=[self.callback("Product Manager")]        
+            callbacks=[self.callback("Product Manager")]        
         )

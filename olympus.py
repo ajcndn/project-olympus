@@ -91,7 +91,7 @@ llm = ChatOpenAI(model="gpt-4o")
 approcessorllm = ChatOpenAI(model="gpt-3.5-turbo")
 directorofAPllm = ChatOpenAI(model="gpt-3.5-turbo")
 sysadminllm = ChatOpenAI(model="gpt-3.5-turbo")
-productmanagerllm = ChatOpenAI(model="gpt-3.5-turbo")
+productmanagerllm = ChatOpenAI(model="gpt-4o")
 
 #handler
 agent=AIAPAgents(callback=MyCustomHandler, llm=llm)
@@ -127,8 +127,9 @@ def StartCrew(prompt):
 
     result = crew.kickoff()
 
-    #chat_interface.send("## Final Result\n"+result, user="Assistant", respond=False)
-    chat_interface.send(" Final Result\n"+result, user="Assistant", respond=False)
+
+    #chat_interface.send(" Final Result\n"+result, user="Assistant", respond=False)
+    chat_interface.send("💬 Thank you! Please refresh if you'd like to provide another idea!", user="Assistant", respond=False)
 
 chat_interface = pn.chat.ChatInterface(callback=callback)
 chat_interface.send("💬 Hello! Please provide a product idea and our council of AP experts will provide feedback!", user="Assistant", respond=False)

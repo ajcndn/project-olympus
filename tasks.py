@@ -4,28 +4,28 @@ from crewai import Task
 class AIAPTasks():
     def research_task(self, agent, prompt, feature_num = 3):
         return Task(
-            description=f'Please evaluate the product idea "{prompt}"and provide feedback on what your needs are in your role. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
+            description=f'Please evaluate the product idea "{prompt}"and provide feedback on what your needs are in your role. Make a subtle joke if the product idea does not seem to be related to AP. Please list the top {feature_num} features that would specifically help with your job. Also list your top {feature_num} concerns.',
             agent=agent,
             async_execution=True, 
             expected_output="""
-            "A well-written list of feedback and insight. "
-            "in markdown format, ready for publication, "
-            "each section should have 2 or 3 paragraphs."
-            "Provide a list of features that would help with the job, and a list of concerns."
+            "A well-written list of feedback and insight."
+            "In markdown format, ready for publication, "
+            "each section should have 1 or 2 paragraphs."
+            "Provide a list of very specific features that would help you specifically with your job, and a list of concerns.
+            "Incorporate some of your backstory as to why these features are important to you specifically."
             "Provide a potential product name for the idea.
             """
         )
         
     def compile_results_task(self, agent, context, callback_function):
         return Task(
-            description='Compile the output from all agents into markdown format. Use a table to visually organize the feedback organized by feature',
+            description='Compile the output from all agents into markdown format. Use a table to visually organize the feedback organized by feature. Do not enclose the output in triple backticks.',
             agent=agent,
             context=context,
-            expected_output="""A complete summary in markdown format, with a consistent style and layout. Provide your response in machine readable output.
-                               List out each agents ideas and feedback in a clear and concise manner.
-                               You will need to compile the feedback from the other stakeholders into a single document in priority order. 
-                               Note which stakeholders asked for each feature. The document must be in markdown format with no additional text. 
-                               Please use a table to visually organize the feedback.""",
+            expected_output="""A complete summary in markdown format, with a consistent style and layout.
+                               """,
             callback=callback_function, # This task requires a callback function to save the markdown output
             human_input=False
         )
+
+
