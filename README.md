@@ -20,10 +20,12 @@ Run 'poetry install --no-root' to install the required packages.
 ```
 
 ## Usage
-Rename the .env.example file to .env and fill in the required environment variables for OPENAI_API_KEY & SERPER_API_KEY
-To launch the Olympus_streamlit application run the following command: streamlit run main.py
-To launch the Olympus_panel application run the following command: panel serve olympus_panel.py
-Launch the panel URL from console (http://localhost:5006/olympus)
+- Rename the .env.example file to .env and fill in the required environment variables for OPENAI_API_KEY & SERPER_API_KEY
+
+- To launch the Olympus_streamlit application run the following command: streamlit run main.py
+
+-To launch the Olympus_panel application run the following command: panel serve olympus_panel.py
+- Launch the panel URL from console (http://localhost:5006/olympus)
 
 ```
 
