@@ -24,7 +24,7 @@ Run 'poetry install --no-root' to install the required packages.
 
 - To launch the Olympus_streamlit application run the following command: streamlit run main.py
 
--To launch the Olympus_panel application run the following command: panel serve olympus_panel.py
+- To launch the Olympus_panel application run the following command: panel serve olympus_panel.py
 - Launch the panel URL from console (http://localhost:5006/olympus)
 
 ```
@@ -37,8 +37,5 @@ agents.py: Defines various agents like the editor, news fetcher, news analyzer, 
 tasks.py: Contains the task definitions that are used by the agents to perform specific operations.
 
 file_io.py: Manages file input/output operations, crucial for handling the async flow of data.
-
-
-
 
 #
