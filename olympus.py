@@ -7,12 +7,12 @@ from typing import TYPE_CHECKING, Any, Dict, Optional
 from dotenv import load_dotenv
 from file_io import save_markdown
 import panel as pn 
-pn.extension(design="material")
-#pn.extension('chat', design='material', theme='dark')  # Set dark mode theme
-
-#import threading
 from crewai.agents import CrewAgentExecutor
 import time 
+#from crewai.agents import ChatOpenAI
+pn.extension(design="material")
+#pn.extension('chat', design='material', theme='dark')  # Set dark mode theme
+import threading
 
 load_dotenv()
 
@@ -51,9 +51,11 @@ def callback(contents: str, user: str, instance: pn.chat.ChatInterface):
     global user_input
 
     if not initiate_chat_task_created:
+        thread = threading.Thread(target=initiate_chat, args=(contents,))
+        thread.start()
         # Directly call the function without creating a new thread
-        initiate_chat(contents)
-        initiate_chat_task_created = True
+        #initiate_chat(contents)
+        #initiate_chat_task_created = True
     else:
         user_input = contents
 
@@ -62,7 +64,7 @@ avatars = {
     "Director of Accounts Payable": "avatars/directorofap.png",
     "System Administrator": "avatars/systemadmin.png",
     "Product Manager": "avatars/productmanager.png",
-    "assistant": "avatars/assistant.png"
+    "Assistant": "avatars/assistant.png"
 }
 
 class MyCustomHandler(BaseCallbackHandler):
@@ -74,7 +76,7 @@ class MyCustomHandler(BaseCallbackHandler):
         self, serialized: Dict[str, Any], inputs: Dict[str, Any], **kwargs: Any
     ) -> None:
         """Print out that we are entering a chain."""
-
+        # comment this out if "assistant" is too chatty
         #chat_interface.send(inputs['input'], user="Assistant", respond=False)
 
     def on_chain_end(self, outputs: Dict[str, Any], **kwargs: Any) -> None:
@@ -84,16 +86,21 @@ class MyCustomHandler(BaseCallbackHandler):
 
 #llm = ChatOpenAI(model="gpt-3.5-turbo-0125")
 llm = ChatOpenAI(model="gpt-4o")
+#gpt3 = ChatOpenAI(model="gpt-3.5-turbo")
+#gpt4 = ChatOpenAI(model="gpt-4-turbo")
+
+approcessorllm = ChatOpenAI(model="gpt-3.5-turbo")
+directorofAPllm = ChatOpenAI(model="gpt-3.5-turbo")
+sysadminllm = ChatOpenAI(model="gpt-3.5-turbo")
 
 #handler
 agent=AIAPAgents(callback=MyCustomHandler, llm=llm)
 tasks = AIAPTasks()
 
-
 #Agents
-approcessor = agent.ap_processor_agent()
-directorofAP = agent.director_of_ap_agent()
-sysadmin = agent.system_administrator_agent()
+approcessor = agent.ap_processor_agent(approcessorllm)
+directorofAP = agent.director_of_ap_agent(directorofAPllm)
+sysadmin = agent.system_administrator_agent(sysadminllm)
 productmanager = agent.product_manager_agent()
 
 num_features = 5
@@ -112,7 +119,7 @@ def StartCrew(prompt):
     crew = Crew(
         agents=[approcessor, directorofAP, sysadmin, productmanager],
         tasks= research_results + [compile_results_task],
-        manager_llm=llm,
+        #manager_llm=llm,
         #process=Process.hierarchical
         verbose=3,
         process=Process.sequential

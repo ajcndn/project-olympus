@@ -30,7 +30,7 @@ OPENAI_API_KEY=[OPEN API KEY GOES HERE]
 - To launch the Olympus_panel application run the following command
 
 ```
-panel serve olympus_panel.py
+panel serve olympus.py
 
 ```
 - Launch the panel URL from console (http://localhost:5006/olympus)

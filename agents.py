@@ -1,28 +1,30 @@
 from crewai import Agent
+from langchain_openai import ChatOpenAI
 #from tools.search_tools import SearchTools
-#from handler import MyCustomHandler
 
+# LLMs
+gpt3 = ChatOpenAI(model="gpt-3.5-turbo")
+gpt4 = ChatOpenAI(model="gpt-4-turbo")
+
+# Define the agents
 class AIAPAgents():
     def __init__(self, callback, llm):
         self.callback = callback
-        self.llm=llm
-    def ap_processor_agent(self):
+        self.llm = llm
+    def ap_processor_agent(self, agentllm):
         return Agent(
             role='AP Processor',
             goal='Please evaluate the product idea and provide feedback on what your needs are in your role as an AP processor. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
             backstory="""You are an AP processor. You work in the ERP daily entering invoices and handling vendor inquiries around payment. Your challenges are Heavy data entry, manual paper-based process, lost invoices, late payments, dependent on distributed community of users, often tribal knowledge drives workflow. Your desired tasks are: Verify that the data on the invoice has been properly extracted and identified as part of the capture process, get invoices entered and coded in order to be approved and paid, answer vendor inquiry questions.""",
-            #tools=[SearchTools.search_internet], # Agent can use the internet to search for information.
-            allow_delegation=False,    # Allow the agent to delegate tasks to other agents.
-            verbose=True,             # Print detailed logs for the agent's actions.
-            max_iter=1,              # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
-            #callbacks=[MyCustomHandler("AP Processor")]
-            llm=self.llm,
-            callbacks=[self.callback("AP Processor")]
-
-            
+            #tools=[SearchTools.search_internet],     # Agent can use the internet to search for information.
+            verbose=True,                             # Print detailed logs for the agent's actions.  
+            max_iter=1,                               # Maximum number of iterations for the agent. Prevents an agent from working indefinitely.
+            llm=agentllm,                                 # The language model to use for the agent.
+            allow_delegation=False,                   # Allow the agent to delegate tasks to other agents.
+            callbacks=[self.callback("AP Processor")] # Callbacks to handle the agent's actions.           
         )
 
-    def director_of_ap_agent(self):
+    def director_of_ap_agent(self, agentllm):
         return Agent(
             role='Director of Accounts Payable',
             goal='Please evaluate the product idea and provide feedback on what your needs are in your role as the Director of Accounts Payable. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
@@ -30,14 +32,12 @@ class AIAPAgents():
             #tools=[SearchTools.search_internet], 
             verbose=True,
             max_iter=1,
+            llm=agentllm,   
             allow_delegation=False,
-            #callbacks=[MyCustomHandler("Director of Accounts Payable")]
-            llm=self.llm,
-            callbacks=[self.callback("Director of Accounts Payable")]
-            
+            callbacks=[self.callback("Director of Accounts Payable")]          
         )
 
-    def system_administrator_agent(self):
+    def system_administrator_agent(self, agentllm):
         return Agent(
             role='System Administrator',
             goal='Please evaluate the product idea and provide feedback on what your needs are in your role as the System Administrator. Please list the top {feature_num} features that would help with your job. Also list your top {feature_num} concerns.',
@@ -45,23 +45,20 @@ class AIAPAgents():
             #tools=[SearchTools.search_internet],
             verbose=True,
             max_iter=1,
+            llm=agentllm,   
             allow_delegation=False,
-            #callbacks=[MyCustomHandler("System Administrator")]
-            llm=self.llm,
-            callbacks=[self.callback("System Administrator")]
-            
+            callbacks=[self.callback("System Administrator")]           
         )
 
     def product_manager_agent(self):
         return Agent(
             role='Product Manager',
             goal='Compile the output from all agents into the final format organized by feature',
-            backstory="""You are the product manager for this product. Your job is to document the feedback organized by feature so that the product team can review and prioritize the features requested. You will need to compile the feedback from the other stakeholders into a single document in priority order. Note which stakeholders asked for each feature. The document should be in markdown format and should be ready for publication. Please use a table to visually organize the feedback.""",
-            max_iter=100,
+            backstory="""You are the product manager for this product. Your job is to document the feedback organized by feature so that the product team can review and prioritize the features requested. You will need to compile the feedback from the other stakeholders into a single document in priority order. Note which stakeholders asked for each feature. The document should be in markdown format and should be ready for publication. Please use a table to visually organize the feedback.
+            """,
             verbose=True,
-            allow_delegation=False,
-            #callbacks=[MyCustomHandler("Product Manager")]
-            llm=self.llm,
-            callbacks=[self.callback("Product Manager")]
-            
+            max_iter=100,
+            llm=self.llm,   
+            allow_delegation=True,
+            callbacks=[self.callback("Product Manager")]        
         )

@@ -21,6 +21,11 @@ class AIAPTasks():
             description='Compile the output from all agents into the final format organized by feature',
             agent=agent,
             context=context,
-            expected_output="""A complete summary in markdown format, with a consistent style and layout. List out each agents ideas and feedback in a clear and concise manner.""",
-            callback=callback_function # This task requires a callback function to save the markdown output
+            expected_output="""A complete summary in markdown format, with a consistent style and layout. Provide your response in machine readable output.
+                               List out each agents ideas and feedback in a clear and concise manner.
+                               You will need to compile the feedback from the other stakeholders into a single document in priority order. 
+                               Note which stakeholders asked for each feature. The document must be in markdown format with no additional text. 
+                               Please use a table to visually organize the feedback.""",
+            callback=callback_function, # This task requires a callback function to save the markdown output
+            human_input=False
         )

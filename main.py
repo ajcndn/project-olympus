@@ -46,6 +46,10 @@ if prompt := st.chat_input():
     research_results.append(tasks.research_task(director_of_ap_agent, prompt, num_features))
     research_results.append(tasks.research_task(system_administrator_agent, prompt, num_features))
     compile_results_task = tasks.compile_results_task(product_manager_agent, research_results, save_markdown)
+    
+    #loader = AgentLoader('agents.json')
+    # Load agents from the file
+    #agents = loader.load_agents()
 
     # Form the crew
     crew = Crew(

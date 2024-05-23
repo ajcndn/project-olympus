@@ -25,7 +25,7 @@ class MyCustomHandler(BaseCallbackHandler):
     def on_chain_end(self, outputs: Dict[str, Any], **kwargs: Any) -> None:
         """Print out that we finished a chain."""
     
-        chat_interface.send(outputs['output'], user=self.agent_name, avatar=avatars[self.agent_name], respond=False)
+        #chat_interface.send(outputs['output'], user=self.agent_name, avatar=avatars[self.agent_name], respond=False)
 
 
 
